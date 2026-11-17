@@ -3,30 +3,369 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project One — Kasra Banijamali</title>
+  <title>Constructive AI — Kasra Banijamali</title>
+  <meta name="description" content="The world's first AI-driven 3D-printed large-scale wall panel: an autonomous concrete-printing robot that senses, decides and corrects itself every 0.6 seconds.">
   <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/project-page.css">
 </head>
 <body>
   <div id="site-header"></div>
 
   <main>
-    <div class="container">
-      <section class="page-header">
-        <h1>Project One</h1>
-        <p>A short description of what this project is and the problem it solves.</p>
-        <span class="chip chip-blue">Machine Vision</span>
-        <span class="chip chip-green">Quality Control</span>
+    <div class="container pp">
+
+      <!-- Hero -->
+      <section class="pp-hero">
+        <div>
+          <span class="world-first">World first: an AI-driven 3D-printed large-scale wall panel</span>
+          <h1>Constructive AI: autonomous robotic 3D printing of concrete</h1>
+          <p class="lead">Concrete 3D printing is meant to automate construction, yet in practice an operator still stands beside the printer and keeps adjusting it by hand, because fresh concrete changes from one minute to the next. In this project I automated that judgment. A laser-based 3D vision system, a temperature probe and the extruder motor report what the material is doing, and AI models decide how fast to extrude it and how long to wait before the next layer. The complete cycle of sensing, deciding and adjusting the printer takes <strong>0.6 seconds</strong> and repeats for as long as the robot prints. The result is the first AI-driven 3D-printed large-scale wall panel in the world: 32 layers of concrete deposited without anyone choosing the settings by hand, finishing within 0.39% of the target height.</p>
+          <div>
+            <span class="chip chip-violet">AI / ML</span>
+            <span class="chip chip-blue">Machine Vision</span>
+            <span class="chip chip-coral">Robotics</span>
+            <span class="chip chip-gold">3D Printing</span>
+            <span class="chip chip-green">Quality Control</span>
+          </div>
+        </div>
+        <figure>
+          <img src="../assets/images/projects/constructive-ai/wall-panel.jpg" alt="A grey 3D-printed concrete wall panel made of 32 stacked layers" width="1015" height="641">
+          <figcaption>The wall panel printed under AI control: 850 mm long and 510 mm tall, built from 32 layers.</figcaption>
+        </figure>
       </section>
 
-      <section>
-        <h2>Overview</h2>
-        <p>Write a few paragraphs about the project: the motivation, your role, and the outcome.</p>
+      <!-- Headline numbers -->
+      <section aria-label="Headline results">
+        <div class="stat-row">
+          <div class="stat is-key">
+            <div class="stat-value">0.6<small>s</small></div>
+            <p class="stat-label">to sense, decide and adjust the printer, start to finish</p>
+          </div>
+          <div class="stat">
+            <div class="stat-value">32</div>
+            <p class="stat-label">layers printed with the AI choosing the settings</p>
+          </div>
+          <div class="stat">
+            <div class="stat-value">0.39<small>%</small></div>
+            <p class="stat-label">height error: 510 mm built against a 512 mm target</p>
+          </div>
+          <div class="stat">
+            <div class="stat-value">0.38<small>mm</small></div>
+            <p class="stat-label">average error in layer width, on 20 mm wide layers</p>
+          </div>
+        </div>
+      </section>
 
-        <h2>Links</h2>
-        <p>
-          <a href="#">Live Demo</a> &middot;
-          <a href="#">Source Code</a>
+      <!-- The problem -->
+      <section>
+        <span class="eyebrow">The problem</span>
+        <h2>Why concrete printing still depends on a human operator</h2>
+        <div class="prose">
+          <p>A concrete 3D printer builds layer by layer. A robot extrudes a layer of fresh concrete, then another layer on top of it, and keeps stacking until there is a wall. No moulds, less waste, fewer people on site.</p>
+          <p>Two process parameters decide whether the wall comes out well. The first is the <strong>extrusion rate</strong>: how fast material is pushed through the nozzle. Too little leaves gaps, too much makes the layers bulge. The second is the <strong>interlayer delay</strong>: how long the robot waits before depositing the next layer. Too short and the soft layers underneath deform, too long and the build takes far more time than it needs.</p>
+          <p>The right values keep moving, because the material itself keeps changing.</p>
+        </div>
+        <div data-learn>
+          <p class="learn-hint">Hover over each factor, or tap it, to see how it affects the print.</p>
+          <div class="learn-tiles">
+            <button class="learn-tile" type="button" data-panel="why-time">Time since mixing</button>
+            <button class="learn-tile" type="button" data-panel="why-temp">Temperature</button>
+            <button class="learn-tile" type="button" data-panel="why-hum">Humidity</button>
+            <button class="learn-tile" type="button" data-panel="why-batch">Batch variation</button>
+            <button class="learn-tile" type="button" data-panel="why-load">Weight of the layers above</button>
+          </div>
+          <div class="panel">
+            <div class="learn-panel" id="why-time">
+              <h3>Concrete stiffens from the moment it is mixed</h3>
+              <p>Cement reacts with water (hydration), so the mix gets steadily stiffer. Material that flowed easily early in a print needs more force later, and concrete left idle in the extruder between two layers stiffens further. An extrusion rate that was correct ten minutes ago can now give a layer that is too thin.</p>
+            </div>
+            <div class="learn-panel" id="why-temp" hidden>
+              <h3>A warmer mix hardens faster</h3>
+              <p>Temperature controls the speed of the hydration reaction. A warm mix gains strength sooner and can carry the next layer earlier. A cool mix stays soft for longer and needs more waiting time. The experiments in this study ran between 15 and 25 &deg;C.</p>
+            </div>
+            <div class="learn-panel" id="why-hum" hidden>
+              <h3>Dry air pulls water out of fresh layers</h3>
+              <p>Moisture loss changes how a layer holds its shape and how well it bonds to the next one. Relative humidity during the experiments ranged from 35% to 65%.</p>
+            </div>
+            <div class="learn-panel" id="why-batch" hidden>
+              <h3>No two batches are identical</h3>
+              <p>Small differences in water content or mixing change how the material flows. To cover this, I trained the system on mixes ranging from stiff to very runny, measured as a slump flow of 150 to 220 mm, the standard test for how far fresh mortar spreads.</p>
+            </div>
+            <div class="learn-panel" id="why-load" hidden>
+              <h3>Every new layer loads the ones below it</h3>
+              <p>The bottom layer of a 32-layer wall has to carry 31 others while it is still fresh. If the layers are stacked faster than the material gains strength, the deformation adds up and the wall can buckle or collapse.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sensors -->
+      <section>
+        <span class="eyebrow">Step 1: sense</span>
+        <h2>How the robot knows what the concrete is doing</h2>
+        <p class="prose">I designed and built a sensing system on the print head that measures the geometry of each layer, the state of the material and the load on the extruder, all while the robot is printing.</p>
+        <div data-learn>
+          <p class="learn-hint">Hover over each sensor, or tap it, to see where it sits and what it measures.</p>
+          <div class="learn-tiles">
+            <button class="learn-tile" type="button" data-panel="s-vision">Laser 3D vision</button>
+            <button class="learn-tile" type="button" data-panel="s-temp">Temperature</button>
+            <button class="learn-tile" type="button" data-panel="s-motor">Motor effort</button>
+          </div>
+          <div class="learn-panel sensor-layout" id="s-vision">
+            <img src="../assets/images/projects/constructive-ai/printhead-sensors.jpg" alt="Close-up of the print head with a camera, two laser line projectors and a thermocouple mounted near the nozzle" width="844" height="862">
+            <div>
+              <h3>Structured laser light 3D vision</h3>
+              <p>Two parallel red laser lines are projected onto the freshly deposited layer at a fixed 40&deg; angle, and a 4K camera mounted 150 mm above the nozzle tip looks straight down at them. Because the lines arrive at an angle, they shift sideways wherever the surface is higher. An image-processing algorithm I developed reads that shift and reconstructs the width and total height of the printed layers.</p>
+              <ul class="spec-list">
+                <li>Sub-millimetre accuracy</li>
+                <li>5.5 measurements per second</li>
+                <li>Works while the print head is moving</li>
+                <li>Runs on an NVIDIA Jetson Nano</li>
+              </ul>
+              <p class="tells">Tells the AI: is the layer the right shape, and how much material is actually being deposited?</p>
+            </div>
+          </div>
+          <div class="learn-panel sensor-layout" id="s-temp" hidden>
+            <img src="../assets/images/projects/constructive-ai/printhead-sensors.jpg" alt="Close-up of the print head showing the thermocouple inserted near the nozzle" width="844" height="862">
+            <div>
+              <h3>Material temperature at the nozzle</h3>
+              <p>A K-type thermocouple is installed on the extruder next to the nozzle, with its probe inserted about 4 mm into the flowing material. It reads the temperature of the concrete just before it is deposited. Temperature governs how fast cement hydrates, so it indicates how quickly a layer will gain the strength to carry the next one.</p>
+              <ul class="spec-list">
+                <li>K-type thermocouple</li>
+                <li>Probe 4 mm into the flow</li>
+                <li>Sampled 25 times per second</li>
+              </ul>
+              <p class="tells">Tells the AI: how fast is this material going to harden?</p>
+            </div>
+          </div>
+          <div class="learn-panel sensor-layout" id="s-motor" hidden>
+            <img src="../assets/images/projects/constructive-ai/robot-setup.jpg" alt="The robotic arm with the custom concrete extruder; a label points to the motor where voltage, current and duty cycle are read" width="549" height="862">
+            <div>
+              <h3>Electrical power of the extruder motor</h3>
+              <p>Stiff concrete is harder to push than runny concrete. The motor controller reports the voltage, current and duty cycle of the extrusion motor, and from those the system calculates the electrical power the motor is drawing. Measuring stiffness properly normally means stopping to run a lab test. Motor power gives a continuous stand-in for it during the print, and it reads the material before it leaves the nozzle.</p>
+              <ul class="spec-list">
+                <li>Voltage, current, duty cycle</li>
+                <li>Sampled 25 times per second</li>
+                <li>No extra hardware in the material path</li>
+              </ul>
+              <p class="tells">Tells the AI: how stiff is the material right now, before it is deposited?</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Training -->
+      <section>
+        <span class="eyebrow">Step 2: teach the AI</span>
+        <h2>How the AI learned what good printing looks like</h2>
+        <p class="prose">By watching a lot of printing, good and bad. I printed 108 five-layer test specimens in a full-factorial experiment, deliberately covering easy and difficult conditions: runny and stiff mixes, slow and fast printing, short and long waits. The sensors recorded everything, and specimens with smaller geometric errors were given more weight in training, so the models learn the settings that lead to good layers.</p>
+        <div class="panel">
+          <div class="fact-grid">
+            <div class="fact"><b>108</b><span>five-layer test specimens printed</span></div>
+            <div class="fact"><b>2,160</b><span>data points collected</span></div>
+            <div class="fact"><b>4</b><span>concrete mixes, from stiff to runny</span></div>
+            <div class="fact"><b>3 &times; 3 &times; 3</b><span>nozzle sizes, print speeds and interlayer delays</span></div>
+          </div>
+        </div>
+
+        <h3 style="margin-top: var(--space-4);">Which machine learning model did each job best?</h3>
+        <p class="prose">I trained four types of model on the same data, tuned each one automatically, and tested them on specimens they had never seen. There are two decisions to make, and a different model won each one.</p>
+        <div class="panel">
+          <div class="seg" aria-label="Choose the decision">
+            <button type="button" aria-pressed="true" data-task="rate">Extrusion rate</button>
+            <button type="button" aria-pressed="false" data-task="delay">Interlayer delay</button>
+          </div>
+          <p class="chart-title" id="model-title"></p>
+          <p class="chart-sub" id="model-sub"></p>
+          <div class="bars" id="model-bars"></div>
+          <p class="chart-note" id="model-note"></p>
+        </div>
+      </section>
+
+      <!-- Feature importance -->
+      <section>
+        <span class="eyebrow">Inside the models</span>
+        <h2>Which input feature drives each decision?</h2>
+        <p class="prose">The models do not see raw sensor signals. I condensed the signals into three physics-guided input features, each describing one aspect of the process. A sensitivity analysis (permutation feature importance) then shows how much each feature contributes to each decision.</p>
+        <div class="two-col" data-learn>
+          <div>
+            <p class="learn-hint">Hover over each feature, or tap it, to see how it is calculated and where it matters.</p>
+            <div class="learn-tiles">
+              <button class="learn-tile" type="button" data-panel="f-flow" data-feature="flow">Material flow</button>
+              <button class="learn-tile" type="button" data-panel="f-power" data-feature="power">Motor power</button>
+              <button class="learn-tile" type="button" data-panel="f-temp" data-feature="temp">Temperature</button>
+            </div>
+            <div class="panel">
+              <div class="learn-panel" id="f-flow">
+                <h3>Material flow</h3>
+                <span class="formula">F = W &times; H &times; S</span>
+                <p>Measured layer width times measured total height times printing speed, in mm&sup3; per second. It is the volume of concrete actually being deposited, taken from the laser vision system.</p>
+                <p><strong>Most important for the extrusion rate (37.02%).</strong> That agrees with the physics: the extrusion rate exists to deliver the volume the target layer geometry needs.</p>
+              </div>
+              <div class="learn-panel" id="f-power" hidden>
+                <h3>Motor power</h3>
+                <span class="formula">P = V &times; I &times; D</span>
+                <p>Voltage times current times duty cycle of the extruder motor, in watts. It rises as the material stiffens, so it tracks how the material's flow behaviour evolves during the print.</p>
+                <p><strong>A close second for the extrusion rate (34.47%)</strong> and the second most important feature for the interlayer delay (29.53%).</p>
+              </div>
+              <div class="learn-panel" id="f-temp" hidden>
+                <h3>Material temperature</h3>
+                <span class="formula">T, in &deg;C</span>
+                <p>Read by the thermocouple at the nozzle. Temperature sets the pace of cement hydration, and so how quickly a layer gains early strength and stiffness.</p>
+                <p><strong>Most important for the interlayer delay (41.98%).</strong> A layer that hardens sooner can carry the next one sooner. The model was never told this. It found the relationship in the data, and it matches what concrete science says.</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <p class="chart-title">Contribution of each input feature</p>
+            <p class="chart-sub">Permutation feature importance, in percent. Bars are drawn on a 0 to 50% scale.</p>
+            <p class="bar-name" style="font-weight:700; margin: 0 0 0.2rem;">Extrusion rate (XGBoost model)</p>
+            <div class="bars" id="imp-rate"></div>
+            <p class="bar-name" style="font-weight:700; margin: var(--space-2) 0 0.2rem;">Interlayer delay (Random Forest model)</p>
+            <div class="bars" id="imp-delay"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Loop -->
+      <section>
+        <span class="eyebrow">Step 3: close the loop in real time</span>
+        <h2>From a sensor reading to a corrected printer in 0.6 seconds</h2>
+        <div class="speed">
+          <div class="speed-value">0.6<small>s</small></div>
+          <p><strong>The complete cycle, measured end to end.</strong>Acquiring the sensor data, transferring it, computing the features, running both AI models and applying the new setting to the printer. At the printing speed used for the wall panel (25 mm/s), the nozzle travels only 15 mm between one correction and the next.</p>
+        </div>
+        <p class="prose">This speed is what makes real-time control possible, and it comes from keeping every stage lightweight: a vision algorithm built for speed, three compact features in place of raw images, and models efficient enough to run on a small single-board computer mounted with the printer, with no server or cloud connection involved.</p>
+        <div class="loop" id="loop">
+          <div class="loop-step">
+            <h3>Sense</h3>
+            <p>The camera, thermocouple and motor controller capture the layer geometry, the material temperature and the motor signals.</p>
+          </div>
+          <div class="loop-step">
+            <h3>Extract features</h3>
+            <p>The raw signals are averaged to suppress noise and converted into material flow, motor power and temperature.</p>
+          </div>
+          <div class="loop-step">
+            <h3>Predict</h3>
+            <p>XGBoost predicts the optimum extrusion rate. Random Forest predicts the interlayer delay.</p>
+          </div>
+          <div class="loop-step">
+            <h3>Adjust</h3>
+            <p>The new extrusion rate is sent to the printer while it is still depositing. Then the cycle starts again.</p>
+          </div>
+        </div>
+        <p class="loop-note">
+          <span class="loop-count" id="loop-count">0</span>
+          control cycles would have completed since you opened this page. The animation above is slowed down so you can follow it.
         </p>
+      </section>
+
+      <!-- The real test -->
+      <section>
+        <span class="eyebrow">The real test</span>
+        <h2>Printing a full wall panel with no one choosing the settings</h2>
+        <p class="prose">For the final test the system printed a wall panel 850 mm long and 32 layers tall, using a concrete mix that was not in the training data. I then printed a second panel with one deliberate change, to check whether the AI's waiting times were really necessary.</p>
+        <div class="two-col">
+          <figure>
+            <video id="print-video" muted loop playsinline controls preload="metadata" poster="../assets/videos/constructive-ai/wall-printing-poster.jpg" width="960" height="722">
+              <source src="../assets/videos/constructive-ai/wall-printing.mp4" type="video/mp4">
+            </video>
+            <figcaption>Time-lapse of the robot printing the wall layer by layer. The two red laser lines of the 3D vision system are visible on the print bed.</figcaption>
+          </figure>
+          <div data-learn>
+            <p class="learn-hint">Hover over each panel, or tap it, to see how it went.</p>
+            <div class="learn-tiles">
+              <button class="learn-tile" type="button" data-panel="t-ai">Panel 1: the AI's delays</button>
+              <button class="learn-tile" type="button" data-panel="t-short">Panel 2: delays cut short</button>
+            </div>
+            <div class="panel">
+              <div class="learn-panel" id="t-ai">
+                <h3>All 32 layers, standing</h3>
+                <p>The AI adjusted the extrusion rate continuously within each layer and chose the delay before every new layer, 6.5 minutes on average. The panel finished at 510 mm against a 512 mm target, with no visible deformation.</p>
+              </div>
+              <div class="learn-panel" id="t-short" hidden>
+                <h3>Collapsed after 8 layers</h3>
+                <p>Same mix, same settings, and the AI still controlled the extrusion rate. The only change: each delay was set one level below the AI's recommendation, for example 1 minute where it asked for 5. The lower layers were still too soft, deformed badly, and the panel collapsed after only 8 layers.</p>
+                <p>This shows the AI's delays were not overly cautious. They were close to the shortest waits that keep the wall stable.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section>
+        <span class="eyebrow">The result</span>
+        <h2>How close the printed wall came to the plan</h2>
+        <div class="callout-first" style="margin-bottom: var(--space-3);">
+          <strong>The first AI-driven 3D-printed large-scale wall panel in the world.</strong>
+          <p>Every extrusion rate and every interlayer delay was chosen by the AI during printing, with a material it had never been trained on.</p>
+        </div>
+        <div class="two-col">
+          <figure>
+            <img class="framed" src="../assets/images/projects/constructive-ai/layer-errors.png" alt="Line chart of average width error and total height error for each of the 32 layers. Width error stays mostly below 1 millimetre and height error stays below 3 millimetres." width="1019" height="716">
+            <figcaption>Measured error at each of the 32 layers. Blue is layer width, red is the total height of the wall so far. Both stay within a few millimetres from the first layer to the last.</figcaption>
+          </figure>
+          <div class="prose">
+            <p><strong>Height.</strong> The wall was designed to be 512 mm tall and came out at 510 mm, a cumulative deformation of 0.39% across 32 stacked layers of fresh concrete.</p>
+            <p><strong>Width.</strong> Each layer was designed to be 20 mm wide. The average deviation was 0.38 mm (1.9%) and the largest was 1.3 mm.</p>
+            <p><strong>Self-correction.</strong> Concrete that sits in the extruder between layers stiffens, so some layers started slightly under-extruded. The system detected this through its sensors and raised the extrusion rate, and the rest of the layer came out right.</p>
+            <p><strong>Speed.</strong> Every one of those corrections was computed and applied in 0.6 seconds.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why it matters -->
+      <section>
+        <span class="eyebrow">Why it matters</span>
+        <h2>What this changes for construction</h2>
+        <div class="prose">
+          <p>Most automatic corrections in concrete printing today happen after a defect is already in the wall. This system also reads the material before it leaves the nozzle, so it can prevent problems as well as fix them. It needs no calibration runs for a new mix and does not need to be told the recipe. That is a step toward printers that can be trusted to build on their own, in a factory, on a job site, or in places where sending a crew is difficult.</p>
+          <p class="muted">There is more to do. The tests used plain cement mixes and three fixed interlayer delays. Next steps are fibre-reinforced and other mixes, wider ambient conditions, continuous control of the delay, and automating the mixing and pumping as well.</p>
+        </div>
+      </section>
+
+      <!-- Glossary -->
+      <section>
+        <span class="eyebrow">In plain words</span>
+        <h2>Terms you will see in the paper</h2>
+        <div class="panel glossary">
+          <details>
+            <summary>Extrusion rate</summary>
+            <p>How fast the printer pushes concrete out of the nozzle. In this printer it is the speed of the motor that drives the material, measured in revolutions per minute.</p>
+          </details>
+          <details>
+            <summary>Interlayer delay</summary>
+            <p>The waiting time between finishing one layer and starting the next, so the lower layer can gain enough strength.</p>
+          </details>
+          <details>
+            <summary>Structured laser light (SLL) 3D vision</summary>
+            <p>A way to measure shape with an ordinary camera. Laser lines are projected onto an object at an angle. The lines shift where the surface rises, and the amount of shift gives the height and width.</p>
+          </details>
+          <details>
+            <summary>Closed-loop control</summary>
+            <p>A system that measures its own output and uses the measurement to correct itself, like a thermostat. The opposite is running fixed settings and hoping for the best.</p>
+          </details>
+          <details>
+            <summary>Input feature</summary>
+            <p>A quantity calculated from the raw sensor data and given to a machine learning model as input. Here there are three: material flow, motor power and temperature.</p>
+          </details>
+          <details>
+            <summary>XGBoost and Random Forest</summary>
+            <p>Two machine learning methods that combine many decision trees, each one a chain of yes-or-no questions about the data. XGBoost was the best at predicting the extrusion rate, and Random Forest was the best at choosing the interlayer delay.</p>
+          </details>
+        </div>
+      </section>
+
+      <!-- Paper -->
+      <section>
+        <span class="eyebrow">Read the paper</span>
+        <div class="paper-cite">
+          <h3>Constructive AI: autonomous robotic 3D printing enabled by AI-driven process control and 3D machine vision</h3>
+          <p>Kasra Banijamali and Ali Kazemian. <em>Automation in Construction</em>, volume 192, 2026, article 107281.</p>
+          <p class="doi">DOI: <a href="https://doi.org/10.1016/j.autcon.2026.107281" target="_blank" rel="noopener">https://doi.org/10.1016/j.autcon.2026.107281</a></p>
+          <a class="btn" href="https://doi.org/10.1016/j.autcon.2026.107281" target="_blank" rel="noopener">Open the paper</a>
+        </div>
       </section>
 
       <p><a href="index.html">&larr; Back to Projects</a></p>
@@ -37,5 +376,138 @@
 
   <script>const BASE_URL = "../";</script>
   <script src="../assets/js/main.js"></script>
+  <script>
+  (function () {
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ---- Bar chart helper ---- */
+    function drawBars(el, rows, unit, axisMax, onKey) {
+      var scale = 100 / (axisMax || 100);
+      var top = Math.max.apply(null, rows.map(function (r) { return r.value; }));
+      el.innerHTML = "";
+      rows.forEach(function (r) {
+        var on = onKey ? r.key === onKey : r.value === top;
+        var row = document.createElement("div");
+        row.className = "bar-row" + (on ? " is-on" : "");
+        if (r.key) row.dataset.key = r.key;
+        row.title = r.name + ": " + r.value + unit;
+        row.innerHTML =
+          '<span class="bar-name"></span>' +
+          '<div class="bar-track"><div class="bar-fill"></div></div>' +
+          '<span class="bar-val"></span>';
+        row.querySelector(".bar-name").textContent = r.name;
+        row.querySelector(".bar-val").textContent = r.value + unit;
+        row.querySelector(".bar-fill").style.width = (r.value * scale) + "%";
+        el.appendChild(row);
+      });
+    }
+
+    /* ---- Feature importance (Fig. 11 of the paper) ---- */
+    drawBars(document.getElementById("imp-rate"), [
+      { key: "flow", name: "Material flow", value: 37.02 },
+      { key: "power", name: "Motor power", value: 34.47 },
+      { key: "temp", name: "Temperature", value: 28.51 }
+    ], "%", 50, "flow");
+    drawBars(document.getElementById("imp-delay"), [
+      { key: "flow", name: "Material flow", value: 28.49 },
+      { key: "power", name: "Motor power", value: 29.53 },
+      { key: "temp", name: "Temperature", value: 41.98 }
+    ], "%", 50, "flow");
+
+    function highlightFeature(key) {
+      document.querySelectorAll("#imp-rate .bar-row, #imp-delay .bar-row").forEach(function (row) {
+        row.classList.toggle("is-on", row.dataset.key === key);
+      });
+    }
+
+    /* ---- Hover-to-learn groups: hover, focus or tap a tile to show its panel ---- */
+    document.querySelectorAll("[data-learn]").forEach(function (group) {
+      var tiles = group.querySelectorAll(".learn-tile");
+      function activate(tile) {
+        tiles.forEach(function (t) {
+          var isOn = t === tile;
+          t.classList.toggle("is-active", isOn);
+          t.setAttribute("aria-pressed", String(isOn));
+          document.getElementById(t.dataset.panel).hidden = !isOn;
+        });
+        if (tile.dataset.feature) highlightFeature(tile.dataset.feature);
+      }
+      tiles.forEach(function (tile) {
+        ["mouseenter", "focus", "click"].forEach(function (evt) {
+          tile.addEventListener(evt, function () { activate(tile); });
+        });
+      });
+      activate(tiles[0]);
+    });
+
+    /* ---- Model comparison (Table 9 of the paper, test results) ---- */
+    var TASKS = {
+      rate: {
+        title: "How well each model predicted the optimum extrusion rate",
+        sub: "Share of the variation explained on unseen test specimens (R²), in percent.",
+        note: "XGBoost won clearly at 96.5%. It builds its decision trees one after another, each one correcting the errors of the last, which suits a continuous quantity like the extrusion rate.",
+        rows: [
+          { name: "Support Vector Machine", value: 84.9 },
+          { name: "Random Forest", value: 87.2 },
+          { name: "XGBoost", value: 96.5 },
+          { name: "Neural Network", value: 89.3 }
+        ]
+      },
+      delay: {
+        title: "How often each model chose the right interlayer delay",
+        sub: "Correct choices among 1, 5 or 10 minutes on unseen test specimens (accuracy), in percent.",
+        note: "Random Forest won at 89.3%. It lets many independent decision trees vote, which makes it steady when the choice is between a few fixed options. Choosing at random would score about 33%.",
+        rows: [
+          { name: "Support Vector Machine", value: 50.0 },
+          { name: "Random Forest", value: 89.3 },
+          { name: "XGBoost", value: 87.0 },
+          { name: "Neural Network", value: 81.3 }
+        ]
+      }
+    };
+    var taskBtns = document.querySelectorAll("[data-task]");
+    function showTask(key) {
+      var t = TASKS[key];
+      document.getElementById("model-title").textContent = t.title;
+      document.getElementById("model-sub").textContent = t.sub;
+      document.getElementById("model-note").textContent = t.note;
+      drawBars(document.getElementById("model-bars"), t.rows, "%");
+      taskBtns.forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.task === key));
+      });
+    }
+    taskBtns.forEach(function (b) {
+      b.addEventListener("click", function () { showTask(b.dataset.task); });
+    });
+    showTask("rate");
+
+    /* ---- Control loop ---- */
+    var steps = document.querySelectorAll("#loop .loop-step");
+    var loopCount = document.getElementById("loop-count");
+    var opened = Date.now();
+    var active = 0;
+    steps[0].classList.add("is-active");
+    if (!reduceMotion) {
+      setInterval(function () {
+        steps[active].classList.remove("is-active");
+        active = (active + 1) % steps.length;
+        steps[active].classList.add("is-active");
+      }, 1200);
+    }
+    setInterval(function () {
+      loopCount.textContent = Math.floor((Date.now() - opened) / 600).toLocaleString();
+    }, 600);
+
+    /* ---- Time-lapse: play only while it is on screen ---- */
+    var video = document.getElementById("print-video");
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { video.play().catch(function () {}); } else { video.pause(); }
+        });
+      }, { threshold: 0.4 }).observe(video);
+    }
+  })();
+  </script>
 </body>
 </html>

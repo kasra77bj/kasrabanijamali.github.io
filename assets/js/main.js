@@ -14,7 +14,7 @@
       href: base + "projects/index.html",
       children: [
         { label: "All Projects", href: base + "projects/index.html" },
-        { label: "Project One", href: base + "projects/project-1.html" },
+        { label: "Constructive AI", href: base + "projects/project-1.html" },
         { label: "Project Two", href: base + "projects/project-2.html" },
         { label: "Project Three", href: base + "projects/project-3.html" },
         { label: "Project Four", href: base + "projects/project-4.html" },
@@ -137,7 +137,7 @@
     links.className = "footer-links";
 
     [
-      { label: "Google Scholar", href: "https://scholar.google.com/citations?user=_eOcBIEAAAAJ&hl=en" },
+      { label: "Google Scholar", href: "https://scholar.google.com/citations?user=_eOcBIEAAAAJ&hl=en&oi=ao" },
       { label: "LinkedIn", href: "https://www.linkedin.com/in/kasra-banijamali/" },
       { label: "Contact", href: base + "contact/index.html" }
     ].forEach(function (item) {
