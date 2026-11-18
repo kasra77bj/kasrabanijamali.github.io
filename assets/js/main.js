@@ -15,7 +15,7 @@
       children: [
         { label: "All Projects", href: base + "projects/index.html" },
         { label: "Constructive AI", href: base + "projects/project-1.html" },
-        { label: "Project Two", href: base + "projects/project-2.html" },
+        { label: "ML Early-Age Strength", href: base + "projects/project-2.html" },
         { label: "Project Three", href: base + "projects/project-3.html" },
         { label: "Project Four", href: base + "projects/project-4.html" },
         { label: "Side Projects", href: base + "projects/side-projects.html" }

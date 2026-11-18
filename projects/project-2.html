@@ -3,30 +3,337 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Two — Kasra Banijamali</title>
+  <title>ML Early-Age Strength Prediction — Kasra Banijamali</title>
+  <meta name="description" content="Predicting how strong freshly 3D-printed concrete is in its first week from a sensor embedded in the print: a neural network reaches 95.1% R² across mixes and curing methods.">
   <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/project-page.css">
 </head>
 <body>
   <div id="site-header"></div>
 
   <main>
-    <div class="container">
-      <section class="page-header">
-        <h1>Project Two</h1>
-        <p>A short description of what this project is and the problem it solves.</p>
-        <span class="chip chip-gold">3D Printing</span>
-        <span class="chip chip-coral">Robotics</span>
+    <div class="container pp">
+
+      <!-- Hero -->
+      <section class="pp-hero">
+        <div>
+          <h1>Machine Learning-based early-age strength prediction of 3D printed concrete</h1>
+          <p class="lead">A 3D-printed wall has no formwork, so it is exposed to the air from the moment it is printed, and it is expected to carry loads within days. How strong is it right now? Today the honest answer means printing extra beams and breaking them in a lab. In this project I embedded a small sensor inside 3D-printed concrete beams, recorded how their electrical properties and temperature changed as they cured, and trained machine learning models to turn those readings into a strength estimate. The best model, a neural network, explains <strong>95.1%</strong> of the variation in flexural strength across three concrete mixes, two curing methods and the first seven days of age.</p>
+          <div>
+            <span class="chip chip-violet">AI / ML</span>
+            <span class="chip chip-blue">Embedded Sensors</span>
+            <span class="chip chip-gold">3D Printing</span>
+            <span class="chip chip-green">Quality Control</span>
+          </div>
+          <p class="hero-doi">Published in <em>Progress in Additive Manufacturing</em>, 2025. DOI: <a href="https://doi.org/10.1007/s40964-025-01017-4" target="_blank" rel="noopener">10.1007/s40964-025-01017-4</a></p>
+        </div>
+        <figure>
+          <img src="../assets/images/projects/early-age-strength/beam-with-sensor.jpg" alt="A grey four-layer 3D-printed concrete beam with a white sensor embedded between the second and third layers and a cable leading out" width="856" height="642">
+          <figcaption>A four-layer 3D-printed beam with the sensor embedded between the second and third layers. While the concrete cures, it continuously records three physical properties: relative permittivity, electrical resistivity and internal temperature.</figcaption>
+        </figure>
       </section>
 
-      <section>
-        <h2>Overview</h2>
-        <p>Write a few paragraphs about the project: the motivation, your role, and the outcome.</p>
+      <!-- Headline numbers -->
+      <section aria-label="Headline results">
+        <div class="stat-row">
+          <div class="stat is-key">
+            <div class="stat-value">95.1<small>%</small></div>
+            <p class="stat-label">of strength variation explained by the neural network (R², 10-fold mean)</p>
+          </div>
+          <div class="stat">
+            <div class="stat-value">144</div>
+            <p class="stat-label">3D-printed beams monitored and tested to failure</p>
+          </div>
+          <div class="stat">
+            <div class="stat-value">0.22<small>MPa</small></div>
+            <p class="stat-label">prediction error (RMSE) of the best model, on beams averaging 2.8 MPa</p>
+          </div>
+          <div class="stat">
+            <div class="stat-value">1&ndash;7<small>days</small></div>
+            <p class="stat-label">of age covered, the window when the next build steps are decided</p>
+          </div>
+        </div>
+      </section>
 
-        <h2>Links</h2>
-        <p>
-          <a href="#">Live Demo</a> &middot;
-          <a href="#">Source Code</a>
-        </p>
+      <!-- The problem -->
+      <section>
+        <span class="eyebrow">The problem</span>
+        <h2>Why nobody knows how strong a freshly printed wall is</h2>
+        <div class="prose">
+          <p>3D printing promises to build fast, and that speed only pays off if the next step, such as installing a roof, can follow soon after printing. That decision depends on one number: how much strength the concrete has gained so far. For printed concrete, that number is unusually hard to know.</p>
+        </div>
+        <div data-learn>
+          <p class="learn-hint">Hover over each factor, or tap it, to see why it makes strength hard to predict.</p>
+          <div class="learn-tiles">
+            <button class="learn-tile" type="button" data-panel="why-form">No formwork</button>
+            <button class="learn-tile" type="button" data-panel="why-cure">Curing varies</button>
+            <button class="learn-tile" type="button" data-panel="why-early">Loaded early</button>
+            <button class="learn-tile" type="button" data-panel="why-break">Destructive tests are slow</button>
+            <button class="learn-tile" type="button" data-panel="why-maturity">The usual shortcut fails</button>
+          </div>
+          <div class="panel">
+            <div class="learn-panel" id="why-form">
+              <h3>Printed concrete is exposed from the first minute</h3>
+              <p>Cast concrete sits inside a mould that holds its water in while the cement reacts. A printed layer is built without a mould, so every surface is open to the air and water evaporates from the start. Cement needs that water to gain strength.</p>
+            </div>
+            <div class="learn-panel" id="why-cure" hidden>
+              <h3>The same mix can end up with different strengths</h3>
+              <p>Hot, dry air pulls water out faster and can stall the hydration reactions. A curing compound sprayed on the surface slows that loss. Two beams printed from the same batch can gain strength at different rates depending on how they were treated after printing.</p>
+            </div>
+            <div class="learn-panel" id="why-early" hidden>
+              <h3>Printed structures are expected to work within days</h3>
+              <p>The point of robotic printing is speed, so printed elements are expected to carry service loads soon after printing. Waiting the conventional 28 days for strength to settle throws that advantage away, which makes the first week the period that matters.</p>
+            </div>
+            <div class="learn-panel" id="why-break" hidden>
+              <h3>Destructive testing is accurate but slow and blind</h3>
+              <p>The standard way to measure strength is destructive: a sample is loaded in a press until it fails. It needs extra specimens and preparation, gives one number at one moment, and the sample did not cure under the same conditions as the wall. It cannot follow strength continuously.</p>
+            </div>
+            <div class="learn-panel" id="why-maturity" hidden>
+              <h3>The maturity method assumes the water stays put</h3>
+              <p>For cast concrete, engineers estimate strength from temperature history alone (the maturity method). That works when a mould keeps the moisture constant. In printed concrete, moisture changes with evaporation, so temperature alone cannot tell the full story.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sensor -->
+      <section>
+        <span class="eyebrow">Step 1: monitor from inside the concrete</span>
+        <h2>One embedded sensor, three readings, all week long</h2>
+        <p class="prose">I placed a compact sensor, originally designed to measure soil moisture (TEROS-12), on top of the second layer during printing. The robot then printed the third and fourth layers over it, so the sensor ends up buried in the middle of the beam, where it reads the concrete continuously as it hardens.</p>
+        <div class="two-col">
+          <figure>
+            <img src="../assets/images/projects/early-age-strength/sensor-placement.jpg" alt="The white sensor with three metal prongs pressed into the top of a freshly printed second layer" width="611" height="642">
+            <figcaption>The sensor's three steel prongs are pressed into the fresh second layer. Two more layers are then printed on top.</figcaption>
+          </figure>
+          <div data-learn>
+            <p class="learn-hint">Hover over each reading, or tap it, to see what it reveals about the concrete.</p>
+            <div class="learn-tiles">
+              <button class="learn-tile" type="button" data-panel="s-perm">Relative permittivity</button>
+              <button class="learn-tile" type="button" data-panel="s-res">Electrical resistivity</button>
+              <button class="learn-tile" type="button" data-panel="s-temp">Internal temperature</button>
+            </div>
+            <div class="panel">
+              <div class="learn-panel" id="s-perm">
+                <h3>Relative permittivity: how much free water is left</h3>
+                <p>Permittivity measures how strongly a material responds to an electric field, and water responds far more than cement or sand. As cement hydrates it consumes water, so permittivity falls as the concrete gains strength.</p>
+                <p class="tells">Tells the model: how far has hydration progressed, and how much water remains to keep it going?</p>
+              </div>
+              <div class="learn-panel" id="s-res" hidden>
+                <h3>Electrical resistivity: how closed the pores are</h3>
+                <p>Current flows through the water in the concrete's pores. Hydration uses that water up and fills the pores with solid products, so resistivity rises steadily. In the data it had the strongest correlation with age of any input (R = 0.84).</p>
+                <p class="tells">Tells the model: how dense has the internal structure become?</p>
+              </div>
+              <div class="learn-panel" id="s-temp" hidden>
+                <h3>Internal temperature: how fast the reaction runs</h3>
+                <p>Hydration releases heat and runs faster when warm. Measured inside the beam, not in the room, temperature is the classic input of the maturity method and ranged from 21.6 to 32.5 &deg;C across the dataset.</p>
+                <p class="tells">Tells the model: how quickly is strength being gained right now?</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Experiment -->
+      <section>
+        <span class="eyebrow">Step 2: build the dataset</span>
+        <h2>From printed beam to labelled data point</h2>
+        <p class="prose">Each beam was printed by a lab-scale concrete printer, monitored by its sensor, and then broken in a four-point bending test (ASTM C78) at a set age. The sensor readings at that moment, together with what is known about the mix and how it was cured, become the inputs. The measured strength becomes the answer the model learns to predict.</p>
+        <div class="loop" id="flow">
+          <div class="loop-step">
+            <h3>Print</h3>
+            <p>Two layers are printed, the sensor is embedded, then two more layers go on top. Half the beams get a sprayed curing compound.</p>
+          </div>
+          <div class="loop-step">
+            <h3>Monitor</h3>
+            <p>The sensor records permittivity, resistivity and temperature continuously while the beam cures.</p>
+          </div>
+          <div class="loop-step">
+            <h3>Break</h3>
+            <p>Beams are tested in four-point bending at 1, 3, 5 or 7 days to get their true flexural strength.</p>
+          </div>
+          <div class="loop-step">
+            <h3>Learn</h3>
+            <p>Six inputs per beam are normalised and used to train and test the machine learning models.</p>
+          </div>
+        </div>
+
+        <div class="two-col" style="margin-top: var(--space-3);">
+          <figure>
+            <img src="../assets/images/projects/early-age-strength/bending-test.jpg" alt="A four-layer printed concrete beam resting on two supports in a testing machine, with two red loading rollers pressing on its top" width="696" height="707">
+            <figcaption>Four-point bending test of a 3D-printed beam (ASTM C78).</figcaption>
+          </figure>
+          <div class="panel">
+            <div class="fact-grid">
+              <div class="fact"><b>144</b><span>printed beams, each one a data point</span></div>
+              <div class="fact"><b>3</b><span>concrete mixes, water-to-cement ratio 0.42, 0.45 and 0.48</span></div>
+              <div class="fact"><b>2</b><span>curing methods: open air, or a sprayed curing compound</span></div>
+              <div class="fact"><b>4</b><span>test ages: 1, 3, 5 and 7 days after printing</span></div>
+            </div>
+            <ul class="spec-list" style="margin-top: var(--space-2);">
+              <li>Nozzle 100 &times; 25 mm, printing at 40 mm/s</li>
+              <li>4 layers, 120 s between layers</li>
+              <li>Strengths from 1.97 to 4.26 MPa</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Models -->
+      <section>
+        <span class="eyebrow">Step 3: teach the AI</span>
+        <h2>Which model read the sensors best?</h2>
+        <p class="prose">I trained three types of model on 80% of the beams and tested them on the 20% they had never seen, then compared them with the empirical curves from my earlier study, which had to be fitted separately for every mix and curing method. The ML models use one model for all of them.</p>
+        <div class="panel">
+          <div class="seg" aria-label="Choose the comparison">
+            <button type="button" aria-pressed="true" data-view="models">All models</button>
+            <button type="button" aria-pressed="false" data-view="kernels">SVR kernels</button>
+            <button type="button" aria-pressed="false" data-view="folds">Neural network, 10 folds</button>
+          </div>
+          <p class="chart-title" id="model-title"></p>
+          <p class="chart-sub" id="model-sub"></p>
+          <div class="bars" id="model-bars"></div>
+          <p class="chart-note" id="model-note"></p>
+        </div>
+        <div class="panel" style="margin-top: var(--space-2);">
+          <p class="chart-title">The winning network</p>
+          <ul class="spec-list">
+            <li>Multilayer perceptron, 4 hidden layers of 16 neurons</li>
+            <li>ReLU activation, L-BFGS optimiser</li>
+            <li>Curing method one-hot encoded</li>
+            <li>Validated with 10-fold cross-validation</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Feature importance -->
+      <section>
+        <span class="eyebrow">Inside the model</span>
+        <h2>What the neural network pays attention to</h2>
+        <p class="prose">A permutation feature importance analysis shuffles one input at a time and measures how much worse the predictions get. The bigger the drop, the more the model relies on that input.</p>
+        <div class="two-col" data-learn>
+          <div>
+            <p class="learn-hint">Hover over each input, or tap it, to see what it is and why it matters.</p>
+            <div class="learn-tiles">
+              <button class="learn-tile" type="button" data-panel="f-c" data-feature="c">Curing method</button>
+              <button class="learn-tile" type="button" data-panel="f-t" data-feature="t">Temperature</button>
+              <button class="learn-tile" type="button" data-panel="f-wc" data-feature="wc">Water-to-cement</button>
+              <button class="learn-tile" type="button" data-panel="f-a" data-feature="a">Age</button>
+              <button class="learn-tile" type="button" data-panel="f-p" data-feature="p">Permittivity</button>
+              <button class="learn-tile" type="button" data-panel="f-er" data-feature="er">Resistivity</button>
+            </div>
+            <div class="panel">
+              <div class="learn-panel" id="f-c">
+                <h3>Curing method: the most important input</h3>
+                <p>Whether the beam was left in open air or sprayed with a curing compound mattered more than anything else. Earlier ML studies of printed concrete largely left curing out. This result says it cannot be ignored when there is no formwork to hold the water in.</p>
+              </div>
+              <div class="learn-panel" id="f-t" hidden>
+                <h3>Internal temperature: second most important</h3>
+                <p>Temperature drives hydration, which is why it is the basis of the maturity method. The model confirms it is essential, but also that on its own it is not enough for printed concrete.</p>
+              </div>
+              <div class="learn-panel" id="f-wc" hidden>
+                <h3>Water-to-cement ratio</h3>
+                <p>The recipe. Less water per unit of cement gives a stronger, denser paste. It is known before printing, so it costs nothing to include.</p>
+              </div>
+              <div class="learn-panel" id="f-a" hidden>
+                <h3>Age</h3>
+                <p>Days since printing, from 1 to 7. Strength grows with time, but how fast depends on everything else on this list.</p>
+              </div>
+              <div class="learn-panel" id="f-p" hidden>
+                <h3>Relative permittivity</h3>
+                <p>The more useful of the two electrical readings. It responds directly to free water, the quantity that evaporation steals and the maturity method cannot see. My earlier study was the first to use permittivity to estimate the strength of 3D-printed concrete, and the network ranks it above resistivity.</p>
+              </div>
+              <div class="learn-panel" id="f-er" hidden>
+                <h3>Electrical resistivity</h3>
+                <p>Lowest on its own, partly because it moves so closely with age (R = 0.84) that much of its information is already in the model. It still adds accuracy, as the next section shows.</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <p class="chart-title">Permutation feature importance</p>
+            <p class="chart-sub">Neural network. Values are read from Fig. 10 of the paper, so they are approximate. In percent, on a 0 to 100% scale.</p>
+            <div class="bars" id="imp-bars"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ablation -->
+      <section>
+        <span class="eyebrow">Testing the inputs</span>
+        <h2>What happens when the model sees less?</h2>
+        <p class="prose">To check that every input earns its place, I retrained and re-optimised the network with parts of the data removed.</p>
+        <div class="panel">
+          <p class="chart-title">Accuracy of the neural network with different sets of inputs</p>
+          <p class="chart-sub">R² on unseen beams, in percent.</p>
+          <div class="bars" id="ablation-bars"></div>
+          <p class="chart-note">Sensor readings alone reach 85%. Adding what is already known about the beam (mix, age and curing method) lifts that to 95.1%. The sensors and the context work best together, and removing either electrical reading costs accuracy.</p>
+        </div>
+      </section>
+
+      <!-- Why it matters -->
+      <section>
+        <span class="eyebrow">Why it matters</span>
+        <h2>What this changes for construction</h2>
+        <div class="callout-first" style="margin-bottom: var(--space-3);">
+          <strong>One model across mixes and curing conditions, fed by a sensor that stays in the structure.</strong>
+          <p>The empirical approach needed a new calibration curve for every mix and every curing method. The ML models handle all of them at once and are more accurate (95.1% compared with at least 83.6%).</p>
+        </div>
+        <div class="prose">
+          <p>A sensor embedded during printing keeps reporting for as long as it is there, so strength can be followed day by day instead of sampled once by breaking a beam. That gives the site team an evidence-based answer to the question that drives the schedule: is this wall ready for the next step? The same approach scales to large printed structures and fits into automated quality monitoring, where sensors and AI replace guesswork.</p>
+          <p class="muted">There is more to do. The dataset of 144 beams covers three plain cement mixes and two curing methods. Next steps are larger datasets, other curing methods such as steam curing, and mixes with supplementary cementitious materials.</p>
+        </div>
+      </section>
+
+      <!-- Glossary -->
+      <section>
+        <span class="eyebrow">In plain words</span>
+        <h2>Terms you will see in the paper</h2>
+        <div class="panel glossary">
+          <details>
+            <summary>Early-age strength</summary>
+            <p>The strength concrete has in its first days, while it is still gaining strength quickly. Here, 1 to 7 days after printing.</p>
+          </details>
+          <details>
+            <summary>Flexural strength</summary>
+            <p>How much bending stress a beam can take before it cracks. It is measured by supporting the beam at both ends and pressing down in the middle.</p>
+          </details>
+          <details>
+            <summary>Curing</summary>
+            <p>Everything that happens to concrete after it is placed while it hardens, especially how much water it keeps. A curing compound is a liquid sprayed on the surface that forms a film and slows evaporation.</p>
+          </details>
+          <details>
+            <summary>Relative permittivity</summary>
+            <p>A measure of how strongly a material responds to an electric field. Water has a very high value, so permittivity is a good indicator of how much free water the concrete still holds.</p>
+          </details>
+          <details>
+            <summary>Maturity method</summary>
+            <p>The standard non-destructive way to estimate concrete strength from its temperature history. It assumes the moisture conditions stay constant, which printed concrete does not guarantee.</p>
+          </details>
+          <details>
+            <summary>R² (coefficient of determination)</summary>
+            <p>The share of the variation in the real values that the model's predictions explain. 100% would be perfect, 0% no better than always guessing the average.</p>
+          </details>
+          <details>
+            <summary>Linear regression, SVR and neural network</summary>
+            <p>Three kinds of model, from simplest to most flexible. Linear regression fits a straight-line relationship. Support vector regression (SVR) can bend that relationship using a kernel. A neural network learns its own non-linear relationships from the data.</p>
+          </details>
+          <details>
+            <summary>10-fold cross-validation</summary>
+            <p>Splitting the data into ten parts, training on nine and testing on the tenth, and repeating so every part is tested once. It shows whether a good score was luck or holds up across the data.</p>
+          </details>
+        </div>
+      </section>
+
+      <!-- Paper -->
+      <section>
+        <span class="eyebrow">Read the paper</span>
+        <div class="paper-cite">
+          <h3>Machine learning approach to predict the early-age flexural strength of sensor-embedded 3D-printed structures</h3>
+          <p>Kasra Banijamali, Mary Dempsey, Jianhua Chen and Ali Kazemian. <em>Progress in Additive Manufacturing</em>, volume 10, 2025, pages 6921&ndash;6933. Open access.</p>
+          <p class="doi">DOI: <a href="https://doi.org/10.1007/s40964-025-01017-4" target="_blank" rel="noopener">https://doi.org/10.1007/s40964-025-01017-4</a></p>
+          <a class="btn" href="https://doi.org/10.1007/s40964-025-01017-4" target="_blank" rel="noopener">Open the paper</a>
+          <p class="muted" style="margin-top: var(--space-2); font-size: 0.85rem;">Photos on this page are from the paper, published under a <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> licence.</p>
+        </div>
       </section>
 
       <p><a href="index.html">&larr; Back to Projects</a></p>
@@ -37,5 +344,149 @@
 
   <script>const BASE_URL = "../";</script>
   <script src="../assets/js/main.js"></script>
+  <script>
+  (function () {
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ---- Bar chart helper ---- */
+    function drawBars(el, rows, opts) {
+      opts = opts || {};
+      var unit = opts.unit || "";
+      var scale = 100 / (opts.axisMax || 100);
+      var top = Math.max.apply(null, rows.map(function (r) { return r.value; }));
+      el.innerHTML = "";
+      rows.forEach(function (r) {
+        var on = opts.onKey ? r.key === opts.onKey : r.value === top;
+        var label = (opts.prefix || "") + (r.label || r.value) + unit;
+        var row = document.createElement("div");
+        row.className = "bar-row" + (on ? " is-on" : "");
+        if (r.key) row.dataset.key = r.key;
+        row.title = r.name + ": " + label;
+        row.innerHTML =
+          '<span class="bar-name"></span>' +
+          '<div class="bar-track"><div class="bar-fill"></div></div>' +
+          '<span class="bar-val"></span>';
+        row.querySelector(".bar-name").textContent = r.name;
+        row.querySelector(".bar-val").textContent = label;
+        row.querySelector(".bar-fill").style.width = (r.value * scale) + "%";
+        el.appendChild(row);
+      });
+    }
+
+    /* ---- Feature importance (Fig. 10 of the paper, approximate) ---- */
+    drawBars(document.getElementById("imp-bars"), [
+      { key: "c", name: "Curing method", value: 64 },
+      { key: "t", name: "Temperature", value: 53 },
+      { key: "wc", name: "Water-to-cement", value: 42 },
+      { key: "a", name: "Age", value: 35 },
+      { key: "p", name: "Permittivity", value: 18 },
+      { key: "er", name: "Resistivity", value: 13 }
+    ], { axisMax: 100, unit: "%", prefix: "≈ ", onKey: "c" });
+
+    function highlightFeature(key) {
+      document.querySelectorAll("#imp-bars .bar-row").forEach(function (row) {
+        row.classList.toggle("is-on", row.dataset.key === key);
+      });
+    }
+
+    /* ---- Ablation (Section 3.4 of the paper) ---- */
+    drawBars(document.getElementById("ablation-bars"), [
+      { name: "All six inputs", value: 95.1 },
+      { name: "Without resistivity", value: 91 },
+      { name: "Without permittivity", value: 89 },
+      { name: "Sensor readings only", value: 85 }
+    ], { unit: "%" });
+
+    /* ---- Hover-to-learn groups: hover, focus or tap a tile to show its panel ---- */
+    document.querySelectorAll("[data-learn]").forEach(function (group) {
+      var tiles = group.querySelectorAll(".learn-tile");
+      function activate(tile) {
+        tiles.forEach(function (t) {
+          var isOn = t === tile;
+          t.classList.toggle("is-active", isOn);
+          t.setAttribute("aria-pressed", String(isOn));
+          document.getElementById(t.dataset.panel).hidden = !isOn;
+        });
+        if (tile.dataset.feature) highlightFeature(tile.dataset.feature);
+      }
+      tiles.forEach(function (tile) {
+        ["mouseenter", "focus", "click"].forEach(function (evt) {
+          tile.addEventListener(evt, function () { activate(tile); });
+        });
+      });
+      activate(tiles[0]);
+    });
+
+    /* ---- Model comparison (Tables 3 and 4, Fig. 8 of the paper) ---- */
+    var VIEWS = {
+      models: {
+        title: "How well each approach predicted flexural strength",
+        sub: "Share of the variation explained on unseen beams (R²), in percent.",
+        note: "The neural network won at 95.1%. Strength does not grow in a straight line with resistivity or permittivity, so linear regression falls behind, and the network's flexibility captures the curves best. The empirical models needed a separate fit for every mix and curing method; their lowest score was 83.6%.",
+        rows: [
+          { name: "Empirical curves (earlier study)", value: 83.6, label: "≥ 83.6" },
+          { name: "Linear regression", value: 84.5 },
+          { name: "Support vector regression", value: 93.5 },
+          { name: "Neural network", value: 95.1 }
+        ]
+      },
+      kernels: {
+        title: "Support vector regression with different kernels",
+        sub: "R² on unseen beams, in percent. The kernel decides what shape of relationship the model can fit.",
+        note: "The RBF kernel scored highest at 93.5% (RMSE 0.267 MPa). Raising the polynomial degree made results worse, not better: higher degrees overfit the 144 data points.",
+        rows: [
+          { name: "RBF", value: 93.5 },
+          { name: "Polynomial, degree 2", value: 91.1 },
+          { name: "Polynomial, degree 3", value: 89.1 },
+          { name: "Polynomial, degree 4", value: 83.3 }
+        ]
+      },
+      folds: {
+        title: "The neural network across 10 cross-validation folds",
+        sub: "R² on each held-out fold, in percent. Values read from Fig. 8 of the paper.",
+        note: "Every fold scored between 92.9% and 96.8%, with a mean of 95.1%. The accuracy holds whichever beams are held out. The best fold reached an RMSE of 0.221 MPa.",
+        rows: [
+          { name: "Fold 1", value: 95.4 },
+          { name: "Fold 2", value: 92.9 },
+          { name: "Fold 3", value: 96.8 },
+          { name: "Fold 4", value: 95.8 },
+          { name: "Fold 5", value: 96.1 },
+          { name: "Fold 6", value: 93.4 },
+          { name: "Fold 7", value: 95.6 },
+          { name: "Fold 8", value: 94.9 },
+          { name: "Fold 9", value: 93.8 },
+          { name: "Fold 10", value: 96.0 }
+        ]
+      }
+    };
+    var viewBtns = document.querySelectorAll("[data-view]");
+    function showView(key) {
+      var v = VIEWS[key];
+      document.getElementById("model-title").textContent = v.title;
+      document.getElementById("model-sub").textContent = v.sub;
+      document.getElementById("model-note").textContent = v.note;
+      drawBars(document.getElementById("model-bars"), v.rows, { unit: "%" });
+      viewBtns.forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.dataset.view === key));
+      });
+    }
+    viewBtns.forEach(function (b) {
+      b.addEventListener("click", function () { showView(b.dataset.view); });
+    });
+    showView("models");
+
+    /* ---- Workflow steps ---- */
+    var steps = document.querySelectorAll("#flow .loop-step");
+    var active = 0;
+    steps[0].classList.add("is-active");
+    if (!reduceMotion) {
+      setInterval(function () {
+        steps[active].classList.remove("is-active");
+        active = (active + 1) % steps.length;
+        steps[active].classList.add("is-active");
+      }, 1600);
+    }
+  })();
+  </script>
 </body>
 </html>

@@ -321,12 +321,31 @@ button.dropdown-trigger.active {
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: var(--space-1) 0;
-  display: none;
+  z-index: 100;
+  /* Hidden with visibility (not display) so closing can be delayed: the menu
+     stays put briefly if the pointer slips off on the way down to it. */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s ease, visibility 0s linear 0.3s;
+}
+
+/* Invisible bridge over the gap between "Projects" and the menu, so moving
+   the pointer down never leaves the hover area. */
+.dropdown-menu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(-0.75rem - 1px);
+  height: calc(0.75rem + 1px);
 }
 
 .has-dropdown:hover .dropdown-menu,
+.has-dropdown:focus-within .dropdown-menu,
 .has-dropdown.open .dropdown-menu {
-  display: block;
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
 }
 
 .dropdown-menu li a {
@@ -378,6 +397,13 @@ button.dropdown-trigger.active {
     position: static;
     border: none;
     padding-left: var(--space-2);
+    display: none;
+    visibility: visible;
+    opacity: 1;
+    transition: none;
+  }
+
+  .dropdown-menu::before {
     display: none;
   }
 

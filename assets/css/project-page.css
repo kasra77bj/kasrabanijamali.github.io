@@ -521,6 +521,13 @@
   text-wrap: balance;
 }
 
+.pp-hero .hero-doi {
+  margin: var(--space-2) 0 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
 .paper-cite .doi {
   overflow-wrap: anywhere;
 }
